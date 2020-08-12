@@ -8,14 +8,14 @@ import Total from './components/Total';
 import { connect } from 'react-redux'
 import { addFeature, removeFeature } from './actions/featureActions'
 
-const App = () => {
+const App = (props) => {
 
 
   return (
     <div className="boxes">
       <div className="box">
         <Header car={props.car} />
-        <AddedFeatures car={props.car} />
+        <AddedFeatures car={props.car} removeFeature={props.removeFeature}/>
       </div>
       <div className="box">
         <AdditionalFeatures additionalFeatures={props.additionalFeatures} />
@@ -25,13 +25,16 @@ const App = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log('mapState', state)
-	return {
-		additionalFeatures: state.additionalFeatures,
-		additionalPrice: state.additionalPrice,
-		car: state.car,
-	};
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    car: state.car,
+    additionalFeatures: state.additionalFeatures,
+    additionalPrice: state.additionalPrice
+  };
 };
 
-export default connect(mapStateToProps, { addFeature, removeFeature })(App);
+export default connect(mapStateToProps, {
+  addFeature,
+  removeFeature
+})(App);
